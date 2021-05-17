@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './App.css';
 class Person extends React.Component { 
   constructor() {
@@ -10,15 +9,15 @@ class Person extends React.Component {
           Bio: "Im still learning coding",
           imgSrc:"/images.png",
           show:false,
-          count:0,
+          time:0,
     };
   }
-  
   componentDidMount() {
-    Person.show = `You clicked ${this.state.count} times`;
-  }
-  componentDidUpdate() {
-    Person.hide = `You clicked ${this.state.count} times`;
+    setInterval(() => {
+      this.setState((prevState) => ({
+        time: prevState.time + 1,
+      }));
+    }, 1000);
   }
   showPerson = () => {
     this.setState({ ...this.state, show: !this.state.show });
@@ -35,16 +34,16 @@ class Person extends React.Component {
       <h1>{this.state.FullName}</h1>
       <h2>{this.state.Profession}</h2>
         <p>{this.state.Bio}</p>
-        <img src="/images.png"/>
+        <img src='images.png' alt="image"/>
         </div>
         )
   }
       <div className='btn'>
         <button className="btn" onClick={this.showPerson}>Click here</button>
-        <p>You clicked {this.state.count} times</p>
-        <button className="btn" onClick={() => this.setState({ count: this.state.count + 1 })}>
-          Click me
-        </button>
+        <div className="counter">
+          The last component was mounted since: {this.state.time} seconds
+        </div>
+  
         </div>
     </div>
   );
@@ -52,4 +51,3 @@ class Person extends React.Component {
 }
  export default Person;
    
-  
